@@ -1,0 +1,18 @@
+{
+    "name": "PaintIn2D.ColoringBook",
+    "rootNamespace": "",
+    "references": [
+        "GUID:637dfb2b87b2cf0499a8da5b0b91da54",
+        "GUID:4b4c1437c0fb823428900cb008a49c07",
+        "GUID:787d3bb3d5b7d27469c32f38cb58aeb6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

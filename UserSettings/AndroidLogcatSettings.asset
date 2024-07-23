@@ -1,0 +1,142 @@
+{
+    "m_SelectedDeviceId": "LJDQIBJNC6YPVCMR",
+    "m_SelectedProcess": {
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
+        "exited": false
+    },
+    "m_SelectedPriority": 0,
+    "m_KnownProcessesForSerialization": [
+        {
+            "deviceId": "KBAIKN0626763YZ",
+            "name": "com.GPlayStudio.ColoringPaint",
+            "processId": 3226,
+            "exited": true
+        },
+        {
+            "deviceId": "KBAIKN0626763YZ",
+            "name": "com.GPlayStudio.ColoringPaint",
+            "processId": 3884,
+            "exited": true
+        },
+        {
+            "deviceId": "KBAIKN0626763YZ",
+            "name": "com.GPlayStudio.ColoringPaint",
+            "processId": 4477,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.master.draw.asmr",
+            "processId": 7618,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.master.draw.asmr",
+            "processId": 30441,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.master.draw.asmr",
+            "processId": 32452,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.master.draw.asmr",
+            "processId": 25221,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.miui.home",
+            "processId": 2298,
+            "exited": false
+        }
+    ],
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_ExtraWindowState": {
+        "Type": 0,
+        "Height": 0.0
+    },
+    "m_MemoryViewerState": {
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "MemoryGroup": 2,
+        "AutoCapture": true
+    },
+    "m_FilterOptions": {
+        "m_Filter": "",
+        "m_UseRegularExpressions": false,
+        "m_MatchCase": false
+    },
+    "m_SymbolPaths": [],
+    "m_CaptureVideoSettings": {
+        "TimeLimitEnabled": false,
+        "TimeLimit": 180,
+        "VideoSizeEnabled": false,
+        "VideoSizeX": 1280,
+        "VideoSizeY": 720,
+        "BitRateEnabled": false,
+        "BitRateK": 20000,
+        "DisplayIdEnabled": false,
+        "DisplayId": ""
+    },
+    "m_InputSettings": {
+        "ShiftModifier": false,
+        "SendText": "",
+        "PosixKillSignal": 0,
+        "TargetProcess": {
+            "deviceId": "",
+            "name": "",
+            "processId": 0,
+            "exited": false
+        }
+    },
+    "m_AutoScroll": 0
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "196043527142",
+    "project_id": "coloring-asmr-cartoon-book",
+    "storage_bucket": "coloring-asmr-cartoon-book.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196043527142:android:cd571bafc32fcc8f5abc27",
+        "android_client_info": {
+          "package_name": "com.gplay.coloring.asmr.cartoon.book"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7iEKs0U62_Y_6gr9SNnts2Re5CYgsk0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
