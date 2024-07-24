@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour
                 }
 #endif
              
-           Init();
+           //Init();
         });
         // Init();
     }

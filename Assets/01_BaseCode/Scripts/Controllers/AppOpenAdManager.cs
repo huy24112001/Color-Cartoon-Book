@@ -23,7 +23,7 @@ public class AppOpenAdManager
 {
     public static bool IsShowFirstTime = false;
 #if UNITY_ANDROID
-    private const string AD_UNIT_ID = "ca-app-pub-8467610367562059/7839150230";
+    private const string AD_UNIT_ID = "ca-app-pub-8467610367562059/4105038913";
     //test:
     // private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/9257395921";
 #elif UNITY_IOS

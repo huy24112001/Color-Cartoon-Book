@@ -19,9 +19,9 @@ public class AdsController : MonoBehaviour
     private const string MaxSdkKey =
         "eQt0q3679KmUyKeNcSzqC01eB-lILmfTnJoufGxpSn__n1NVhHLeMgxZOaICke451El4ZBfuZum9Qw4WxzpW52";
 
-    private const string InterstitialAdUnitId = "edf9a7d3fd6592a0";
-    private const string RewardedAdUnitId = "3edbd01088c21b1c";
-    private const string BanerAdUnitId = "9939dd24ebee3202";
+    private const string InterstitialAdUnitId = "bcd5b9dfaba5174d";
+    private const string RewardedAdUnitId = "d44c66a41a2ecc3a";
+    private const string BanerAdUnitId = "40a51f77b0ae7c23";
 #elif UNITY_IOS
     private const string MaxSdkKey =
  "eQt0q3679KmUyKeNcSzqC01eB-lILmfTnJoufGxpSn__n1NVhHLeMgxZOaICke451El4ZBfuZum9Qw4WxzpW52";
@@ -107,7 +107,7 @@ public class AdsController : MonoBehaviour
 #if TESTER
     private const string BANNER_ADMOB_ID = "ca-app-pub-3940256099942544/9214589741"; //"ca-app-pub-3940256099942544/9214589741";
 #else
-    private const string BANNER_ADMOB_ID = "ca-app-pub-8467610367562059/9099179442";
+    private const string BANNER_ADMOB_ID = "ca-app-pub-8467610367562059/8635310863";
 #endif
     private bool _isShowAdmobBanner;
     private AdRequest bannerHomeLoadRequest;

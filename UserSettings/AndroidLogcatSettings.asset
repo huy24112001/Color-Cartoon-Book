@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "LJDQIBJNC6YPVCMR",
     "m_SelectedProcess": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "LJDQIBJNC6YPVCMR",
+        "name": "com.gplay.coloring.asmr.cartoon.book",
+        "processId": 17316,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -54,6 +54,12 @@
             "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.miui.home",
             "processId": 2298,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 17316,
             "exited": false
         }
     ],

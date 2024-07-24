@@ -2494,10 +2494,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 1072919329297373123}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -3167,10 +3167,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 783401130939473771}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0

@@ -15,7 +15,8 @@ public class CameraController : MonoBehaviour
 
     public float firstOrthographicSize = 0f;
     public Vector3 firstPositionCamera = Vector3.zero;
-  
+    public Rect? rectBoundingBox = null;
+    public Transform penObject;
     public Transform Target { get => target; set => target = value; }
 
     void Start()
@@ -31,14 +32,18 @@ public class CameraController : MonoBehaviour
     {
         target = newTarget;
 
-        //var targetHeight = newTarget.GetComponent<SpriteRenderer>().sprite.texture.height;
-        //var targetWidth = newTarget.GetComponent<SpriteRenderer>().sprite.texture.width;
-        //var tmpHeight = (targetWidth * 1.0f / Screen.width)  * Screen.height;
+        Bounds bounds = new Bounds(newTarget.position, Vector3.zero);
+        foreach (SpriteRenderer renderer in newTarget.GetComponentsInChildren<SpriteRenderer>())
+        {
+            bounds.Encapsulate(renderer.bounds);
+        }
 
-        //var graphicTarget = Mathf.Max(tmpHeight, targetHeight) / 100f / 2f;
+        float newSize = mainCamera.orthographicSize * CalculatorScaleOrthographicSize1(bounds);
+        mainCamera.DOOrthoSize(newSize, speed);
 
-        mainCamera.DOOrthoSize(firstOrthographicSize == 0f ? 11f : firstOrthographicSize - 3f, speed);
-  
+        float sc = newSize / 17f;
+        penObject.localScale = new Vector3(0.75f * sc, 0.75f * sc, 0.75f * sc);
+
         Vector3 pos = target.position;
         pos.z = -10f;
         mainCamera.transform.DOMove(pos, speed);
@@ -55,24 +60,71 @@ public class CameraController : MonoBehaviour
     public void OnEndChangeOrthoSize(Bounds bounds)
     {
         posBoundLevel = bounds.center;
-        //GameObject screenArea1 = GameObject.Find("Gameplay/Complete Canvas/Complete Holder/Frame/GameObject");
         float scaleOrthographicSize = CalculatorScaleOrthographicSize(bounds, screenArea);
         Vector3 p = bounds.center;
         p.x = 0f;
         p.z = -10f;
         p.y -= (screenArea.transform.position.y);
 
-        if (PlayerData.CurrentLevel != 11 && PlayerData.CurrentLevel != 13 && PlayerData.CurrentLevel != 16 && PlayerData.CurrentLevel != 18)
-        {
-            p.y -= 1f;
-        }
-
-        Debug.Log("screenArea center : " + screenArea.transform.position);
-        Debug.Log("screenArea center 1 : " + bounds.center);
+        //Debug.Log("screenArea center : " + screenArea.transform.position);
+        //Debug.Log("screenArea center 1 : " + bounds.center);
 
         mainCamera.transform.DOMove(p, speed);
       
-        mainCamera.DOOrthoSize(mainCamera.orthographicSize * scaleOrthographicSize - 1f, speed);
+        mainCamera.DOOrthoSize(mainCamera.orthographicSize * scaleOrthographicSize , speed);
+    }
+
+    public float CalculatorScaleOrthographicSize1(Bounds bounds)
+    {
+        if (rectBoundingBox.HasValue)
+        {
+            Rect boundingBox = rectBoundingBox.Value;
+            // Sử dụng boundingBox ở đây
+
+
+            Vector3[] worldCorners = new Vector3[4];
+            worldCorners[0] = bounds.min;
+            worldCorners[1] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+            worldCorners[2] = bounds.max;
+            worldCorners[3] = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
+
+            // Chuyển đổi các điểm biên từ không gian thế giới sang không gian màn hình
+            Vector3[] screenCorners = new Vector3[4];
+            for (int i = 0; i < 4; i++)
+            {
+                screenCorners[i] = mainCamera.WorldToScreenPoint(worldCorners[i]);
+            }
+
+            // Tính toán kích thước trong không gian màn hình
+            float width = screenCorners[2].x - screenCorners[0].x;
+            float height = screenCorners[1].y - screenCorners[3].y;
+            float scaleOld = width / height;
+            //Debug.Log("width " + width);
+            //Debug.Log("height " + height);
+            //Tính toán kích thước của ô vuông UI
+
+
+
+            float uiSquareWidth = boundingBox.width * 0.7f;
+            float uiSquareHeight = boundingBox.height * 0.7f;
+
+            //Debug.Log("width 1 " + rect.width);
+            //Debug.Log("height 1 " + rect.height);
+
+            float widthNew = uiSquareWidth;
+            float heightNew = widthNew / scaleOld;
+
+            if (heightNew > uiSquareHeight)
+            {
+                heightNew = uiSquareHeight;
+                widthNew = heightNew * scaleOld;
+
+            }
+
+            return width / widthNew;
+        }
+        else
+            return 1;
     }
 
     public float CalculatorScaleOrthographicSize(Bounds bounds, RectTransform rectTransform)
@@ -99,7 +151,7 @@ public class CameraController : MonoBehaviour
         //Debug.Log("height " + height);
         //Tính toán kích thước của ô vuông UI
 
-        Rect rect  = convertSizeRect(rectTransform);
+        Rect rect  = ConvertSizeRect(rectTransform);
 
         float uiSquareWidth = rect.width * 0.85f;
         float uiSquareHeight = rect.height * 0.85f;
@@ -120,7 +172,7 @@ public class CameraController : MonoBehaviour
         return width/widthNew;
     }
 
-    public Rect convertSizeRect(RectTransform rect)
+    public Rect ConvertSizeRect(RectTransform rect)
     {
         Vector3[] worldCorners = new Vector3[4];
         rect.GetWorldCorners(worldCorners);

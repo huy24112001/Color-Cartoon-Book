@@ -109,18 +109,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance.ColorPenClampPoints[0].position = topRight.transform.position;
-        GameManager.Instance.ColorPenClampPoints[1].position = bottomLeft.transform.position;
-
-        //Debug.Log("here " + topRight.transform.position);
-
-        //Vector2 sizeDelta = rectLevelObject.sizeDelta;
-        //sizeDelta.x = Mathf.Abs(topRight.transform.position.x - bottomLeft.transform.position.x);
-        //sizeDelta.y = Mathf.Abs(topRight.transform.position.y - bottomLeft.transform.position.y);
-        //rectLevelObject.sizeDelta = sizeDelta;
-        //Debug.Log(sizeDelta);
-
-
         LoadLevel();
     }
 
@@ -199,14 +187,42 @@ public class GameManager : MonoBehaviour
     public float CalculatorScaleOrthographicSize(Bounds bounds, RectTransform rectTransform)
     {
 
-        // Tính toán kích thước trong không gian màn hình
-        float width = bounds.size.x;
-        float height = bounds.size.y;
-        float scaleOld = width / height;
+        Vector3[] worldCorners = new Vector3[4];
+        worldCorners[0] = bounds.min;
+        worldCorners[1] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+        worldCorners[2] = bounds.max;
+        worldCorners[3] = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
 
+        // Chuyển đổi các điểm biên từ không gian thế giới sang không gian màn hình
+        Vector3[] screenCorners = new Vector3[4];
+        for (int i = 0; i < 4; i++)
+        {
+            screenCorners[i] = MainCamera.WorldToScreenPoint(worldCorners[i]);
+        }
+
+        // Tính toán kích thước trong không gian màn hình
+        float width = screenCorners[2].x - screenCorners[0].x;
+        float height = screenCorners[1].y - screenCorners[3].y;
+        float scaleOld = width / height;
+        //Debug.Log("width " + width);
+        //Debug.Log("height " + height);
         //Tính toán kích thước của ô vuông UI
-        float uiSquareWidth = rectTransform.rect.width * 0.9f;
-        float uiSquareHeight = rectTransform.rect.height * 0.9f;
+        Rect rect;
+
+        if(!cameraController.rectBoundingBox.HasValue)
+        {
+            rect = convertSizeRect(rectTransform);
+            cameraController.rectBoundingBox = rect;
+        }
+        else
+            rect = cameraController.rectBoundingBox.Value;
+
+
+        float uiSquareWidth = rect.width * 0.85f;
+        float uiSquareHeight = rect.height * 0.85f;
+
+        //Debug.Log("width 1 " + rect.width);
+        //Debug.Log("height 1 " + rect.height);
 
         float widthNew = uiSquareWidth;
         float heightNew = widthNew / scaleOld;
@@ -220,6 +236,39 @@ public class GameManager : MonoBehaviour
 
         return width / widthNew;
     }
+
+    public Rect convertSizeRect(RectTransform rect)
+    {
+        Vector3[] worldCorners = new Vector3[4];
+        rect.GetWorldCorners(worldCorners);
+
+        // Convert the corners to screen space
+        Vector3 screenBottomLeft = Camera.main.WorldToScreenPoint(worldCorners[0]);
+        Vector3 screenTopRight = Camera.main.WorldToScreenPoint(worldCorners[2]);
+
+        // Calculate the captureRect relative to the bottom-left corner of the screen
+        Rect captureRect = new Rect(
+            screenBottomLeft.x,
+            screenBottomLeft.y,
+            screenTopRight.x - screenBottomLeft.x,
+            screenTopRight.y - screenBottomLeft.y
+        );
+
+        // Adjust for screen resolution and aspect ratio
+        float screenWidthRatio = Screen.width / (float)MainCamera.pixelWidth;
+        float screenHeightRatio = Screen.height / (float)MainCamera.pixelHeight;
+        captureRect.x *= screenWidthRatio;
+        captureRect.y *= screenHeightRatio;
+        captureRect.width *= screenWidthRatio;
+        captureRect.height *= screenHeightRatio;
+
+        captureRect.width = Mathf.Abs(captureRect.width) ;
+        captureRect.height = Mathf.Abs(captureRect.height) ;
+        //Debug.Log("screenArea size : " + captureRect.width + " " + captureRect.height);
+
+        return captureRect;
+
+    }
     public void LoadLevel()
     {
         if (currentLevel != null) Destroy(currentLevel.gameObject);
@@ -232,26 +281,20 @@ public class GameManager : MonoBehaviour
         currentLevel = Instantiate(levelPrefabs[currentLevelIndex].gameObject, levelPrefabs[currentLevelIndex].gameObject.transform.position, Quaternion.identity).GetComponent<LevelController>();
         currentLevel.SetUpInstanceReferences(pen.transform);
 
-        if (currentLevelIndex == 10 || currentLevelIndex == 11 || currentLevelIndex == 13 || currentLevelIndex == 15 || currentLevelIndex == 17 || currentLevelIndex == 18)
-        {
-            MainCamera.orthographicSize = 20.5f;
-            cameraController.firstOrthographicSize = MainCamera.orthographicSize;
-        }
-        else
-        {
-            MainCamera.orthographicSize = 17f;
-            cameraController.firstOrthographicSize = MainCamera.orthographicSize;
-        }
-
-
-
-        //Bounds bounds = currentLevel.CalculateBounds(currentLevel.gameObject.transform);
-        //////Debug.Log("bound " + bounds.size.x +" "+ bounds.size.y);
-        //if (bounds.size.x > rectLevelObject.sizeDelta.x * 0.9f || bounds.size.y > rectLevelObject.sizeDelta.y * 0.9f)
+        //if (currentLevelIndex == 10 || currentLevelIndex == 11 || currentLevelIndex == 13 || currentLevelIndex == 15 || currentLevelIndex == 17 || currentLevelIndex == 18)
         //{
-        //    MainCamera.orthographicSize *= CalculatorScaleOrthographicSize(bounds, rectLevelObject);
+        //    MainCamera.orthographicSize = 20.5f;
         //    cameraController.firstOrthographicSize = MainCamera.orthographicSize;
         //}
+        //else
+        //{
+        //    MainCamera.orthographicSize = 17f;
+        //    cameraController.firstOrthographicSize = MainCamera.orthographicSize;
+        //}
+
+
+        Bounds bounds = currentLevel.CalculateBounds(currentLevel.gameObject.transform);
+        cameraController.firstOrthographicSize = MainCamera.orthographicSize * CalculatorScaleOrthographicSize(bounds, rectLevelObject);
 
         currentLevel.gameObject.SetActive(true);
         CameraControllerLooksAtNewTarget(currentLevel.cameraLooksAtTargets[0]);
@@ -261,8 +304,8 @@ public class GameManager : MonoBehaviour
             hintImage[i].sprite = hintSprites[PlayerData.CurrentLevel - 1];
             hintImage[i].SetNativeSize();
         }
-        hintImage[0].transform.localScale = Vector3.one * 0.125f;
-        hintImage[1].transform.localScale = Vector3.one * 0.08f;
+        hintImage[0].transform.localScale = Vector3.one * 0.2f;
+        hintImage[1].transform.localScale = Vector3.one * 0.1f;
         pen.SetActive(true);
         canDragPen = false;
 
@@ -306,25 +349,20 @@ public class GameManager : MonoBehaviour
         currentLevel = Instantiate(levelPrefabs[currentLevelIndex].gameObject, levelPrefabs[currentLevelIndex].gameObject.transform.position, Quaternion.identity).GetComponent<LevelController>();
         currentLevel.SetUpInstanceReferences(pen.transform);
 
-        if (currentLevelIndex == 10 || currentLevelIndex == 11 || currentLevelIndex == 13 || currentLevelIndex == 15 || currentLevelIndex == 17 || currentLevelIndex == 18)
-        {
-            MainCamera.orthographicSize = 20.5f;
-            cameraController.firstOrthographicSize = MainCamera.orthographicSize;
-        }
-        else
-        {
-            MainCamera.orthographicSize = 15f;
-            cameraController.firstOrthographicSize = MainCamera.orthographicSize;
-        }
-        MainCamera.transform.position = new Vector3(0, 0, -10);
-
-        //Bounds bounds = currentLevel.CalculateBounds(currentLevel.gameObject.transform);
-        ////Debug.Log("bound " + bounds.size.x +" "+ bounds.size.y);
-        //if (bounds.size.x > rectLevelObject.sizeDelta.x * 0.9f || bounds.size.y > rectLevelObject.sizeDelta.y * 0.9f)
+        //if (currentLevelIndex == 10 || currentLevelIndex == 11 || currentLevelIndex == 13 || currentLevelIndex == 15 || currentLevelIndex == 17 || currentLevelIndex == 18)
         //{
-        //    MainCamera.orthographicSize *= CalculatorScaleOrthographicSize(bounds, rectLevelObject);
+        //    MainCamera.orthographicSize = 20.5f;
         //    cameraController.firstOrthographicSize = MainCamera.orthographicSize;
         //}
+        //else
+        //{
+        //    MainCamera.orthographicSize = 15f;
+        //    cameraController.firstOrthographicSize = MainCamera.orthographicSize;
+        //}
+        MainCamera.transform.position = new Vector3(0, 0, -10);
+
+        Bounds bounds = currentLevel.CalculateBounds(currentLevel.gameObject.transform);
+        cameraController.firstOrthographicSize = MainCamera.orthographicSize * CalculatorScaleOrthographicSize(bounds, rectLevelObject);
 
         currentLevel.gameObject.SetActive(true);
         CameraControllerLooksAtNewTarget(currentLevel.cameraLooksAtTargets[0]);
@@ -334,8 +372,8 @@ public class GameManager : MonoBehaviour
             hintImage[i].sprite = hintSprites[levelItem.ID];
             hintImage[i].SetNativeSize();
         }
-        hintImage[0].transform.localScale = Vector3.one * 0.125f;
-        hintImage[1].transform.localScale = Vector3.one * 0.08f;
+        hintImage[0].transform.localScale = Vector3.one * 0.2f;
+        hintImage[1].transform.localScale = Vector3.one * 0.1f;
         pen.SetActive(true);
         canDragPen = false;
 

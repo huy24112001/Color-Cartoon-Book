@@ -1,8 +1,11 @@
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using UnityEditor;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 public class GalleryManager : MonoBehaviour
 {
@@ -17,6 +20,9 @@ public class GalleryManager : MonoBehaviour
         //    MaintainAspect(rawImage);
 
         //}
+
+
+   
 
         directoryPath = Application.persistentDataPath + "/";
         if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
@@ -35,6 +41,7 @@ public class GalleryManager : MonoBehaviour
    
 
     }
+  
 
     void MaintainAspect(RawImage rawImage)
     {

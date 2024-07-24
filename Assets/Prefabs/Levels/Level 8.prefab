@@ -394,10 +394,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 4460760569062942001}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -779,10 +779,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 3656126464414113862}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -4114,10 +4114,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 2437410460475810534}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -12238,10 +12238,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 2782155620349560566}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -12817,10 +12817,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 1576303838655221123}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -13730,10 +13730,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 6073512997389400794}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -16045,10 +16045,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 4050415299367758536}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
