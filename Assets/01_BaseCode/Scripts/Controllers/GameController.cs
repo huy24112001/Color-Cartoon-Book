@@ -1,9 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GPlay.GplayGoogleUMP;
 using Sirenix.OdinInspector;
+using UniRx;
+
 #if UNITY_IOS
 using Unity.Advertisement.IosSupport;
 #endif
@@ -50,25 +52,31 @@ public class GameController : MonoBehaviour
     {
         UseProfile.NumberOfAdsInPlay = 0;
         Application.targetFrameRate = 60;
+
         // adsManager.Init();
-        //musicManager.Init();
-        //coroutineStartGame = StartCoroutine(LoadingScene());
-      
+        // musicManager.Init();
+        // coroutineStartGame = StartCoroutine(LoadingScene());
+
         GplayUMP.ShowConsentForm((consert) =>
         {
-            Debug.Log("Consent : " + consert);
-            UseProfile.IsTrackedPremission = consert;
-#if UNITY_IOS
-                if(ATTrackingStatusBinding.GetAuthorizationTrackingStatus() == 
-                ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
-                {
+            // Đảm bảo đoạn mã chạy trên luồng chính
+            MainThreadDispatcher.Post((state) =>
+            {
+                Debug.Log("Consent : " + consert);
+                UseProfile.IsTrackedPremission = consert;
 
+#if UNITY_IOS
+                if (ATTrackingStatusBinding.GetAuthorizationTrackingStatus() ==
+                    ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
+                {
                     ATTrackingStatusBinding.RequestAuthorizationTracking();
                 }
 #endif
-             
-           //Init();
+
+                //Init(); // Gọi hàm Init sau khi gán giá trị
+            }, null);
         });
+
         // Init();
     }
 

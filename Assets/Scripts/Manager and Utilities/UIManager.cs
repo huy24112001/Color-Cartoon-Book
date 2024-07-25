@@ -158,9 +158,9 @@ public class UIManager : MonoBehaviour
 
     public void OnNextCompletedCanvas()
     {
-        if (PlayerData.CurrentLevel == PlayerData.HighestLevel && PlayerData.HighestLevel < 20) PlayerData.HighestLevel++;
+        if (PlayerData.CurrentLevel == PlayerData.HighestLevel && PlayerData.HighestLevel < 30) PlayerData.HighestLevel++;
         PlayerData.CurrentLevel++;
-        if (PlayerData.CurrentLevel > 20)
+        if (PlayerData.CurrentLevel > 30)
         {
             PlayerData.CurrentLevel = 1;
         }
@@ -233,7 +233,7 @@ public class UIManager : MonoBehaviour
 
         GameManager.Instance.LoadLevel();
         SetLevelText(PlayerData.CurrentLevel);
-        GameManager.Instance.CameraControllerMoveToOriginTarget();
+        //GameManager.Instance.CameraControllerMoveToOriginTarget();
    
     }
 

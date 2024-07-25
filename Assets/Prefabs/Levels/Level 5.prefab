@@ -8551,8 +8551,8 @@ MonoBehaviour:
   - {fileID: 6232413841539045616}
   - {fileID: 3158217585864261454}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
   fullLinesImages:
   - {fileID: 6714350172970734330}
   - {fileID: 1644354511999467935}

@@ -2818,10 +2818,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 7536223696928653095}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -3733,10 +3733,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 6922976734976450706}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -6965,10 +6965,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 2670133922239492683}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -7654,17 +7654,17 @@ MonoBehaviour:
   - {fileID: 3740658564683666600}
   colorOptions:
   - colors:
-    - {r: 1, g: 0.9843138, b: 0.909804, a: 1}
+    - {r: 0.9333334, g: 0.91372555, b: 0.69411767, a: 1}
     - {r: 0.9960785, g: 0.7568628, b: 0.427451, a: 1}
-    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0.9490197, g: 0.9176471, b: 0.8352942, a: 1}
   - colors:
     - {r: 0.9568628, g: 0.40784317, b: 0.3019608, a: 1}
     - {r: 0.9803922, g: 0.37647063, b: 0.5803922, a: 1}
-    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0.9607844, g: 0.7137255, b: 0.654902, a: 1}
   - colors:
     - {r: 0.7411765, g: 0.59607846, b: 0.9725491, a: 1}
     - {r: 0.98823535, g: 0.8313726, b: 0.79215693, a: 1}
-    - {r: 0, g: 0, b: 0, a: 0}
+    - {r: 0.82745105, g: 0.78823537, b: 0.54509807, a: 1}
   fullColorParts:
   - {fileID: 9197418656938683018}
   - {fileID: 64956540212914012}

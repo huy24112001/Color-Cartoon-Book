@@ -6695,10 +6695,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 6466501623396366976}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -6984,8 +6984,8 @@ MonoBehaviour:
   - {fileID: 1831049428133777200}
   - {fileID: 6472578428230760811}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
   fullLinesImages:
   - {fileID: 1200566181681568089}
   - {fileID: 4958676213371225044}

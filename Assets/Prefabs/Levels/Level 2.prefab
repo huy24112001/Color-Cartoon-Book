@@ -11871,9 +11871,9 @@ MonoBehaviour:
   - {fileID: 1760110280629000823}
   - {fileID: 1019107498326710665}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
+  - 0.3
   fullLinesImages:
   - {fileID: 62281239814383827}
   - {fileID: 2655546425772378928}

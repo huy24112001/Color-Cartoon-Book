@@ -10,6 +10,7 @@ using GoogleMobileAds.Common;
 using Firebase.Analytics;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
+using UniRx;
 
 public class AdsController : MonoBehaviour
 {
@@ -52,7 +53,7 @@ public class AdsController : MonoBehaviour
     private UnityAction _actionNotLoadedVideo;
     private string actionWatchVideo;
     //public NativeAdsManager adsManager;
-
+    private bool isGamePlay = false;
     public void Init()
     {
         ResetCoolDownTime();
@@ -91,7 +92,7 @@ public class AdsController : MonoBehaviour
                 //{
                 //}
             });
-            //InitBannerAdmob();
+            InitBannerAdmob();
             AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
             isAdmobInitDone = true;
             //adsManager.OnInitAdmobDone();
@@ -136,14 +137,17 @@ public class AdsController : MonoBehaviour
     public void InitBannerAdmob()
     {
         LoadBannerAdmob();
+       
         SceneManager.sceneLoaded += (scene, mode) =>
         {
+            Debug.Log("SceneManager " + scene.name);
             if (scene.name == "Loading Scene")
             {
                 DestroyBanner();
             }
-            else
+            else if (scene.name == "Gameplay")
             {
+                isGamePlay= true;
                 // RefreshCollapseBanner();
                 ShowBanner();
             }
@@ -162,6 +166,7 @@ public class AdsController : MonoBehaviour
     private void RefreshAdmobBanner()
     {
         _isTryLoadAdmobBanner = true;
+         if (!isGamePlay) return;
         _bannerView.LoadAd(bannerHomeLoadRequest);
     }
 
@@ -177,10 +182,11 @@ public class AdsController : MonoBehaviour
         IsCooldownAdmobBanner = true;
         //Admob request
         bannerHomeLoadRequest.Extras.Add("collapsible", "bottom");
-        // bannerHomeLoadRequest.Extras.Add("collapsible_request_id", Guid.NewGuid().ToString());
+        bannerHomeLoadRequest.Extras.Add("collapsible_request_id", Guid.NewGuid().ToString());
         _isTryLoadAdmobBanner = true;
         _bannerView.LoadAd(bannerHomeLoadRequest);
-
+        _bannerView.Hide();
+        Debug.Log("LoadBannerAdmob");
         _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
 
         _bannerView.OnAdPaid += OnAdPaid;
@@ -189,6 +195,7 @@ public class AdsController : MonoBehaviour
 
         void OnBannerAdLoaded()
         {
+            Debug.Log("OnBannerAdLoaded Success");
             _isTryLoadAdmobBanner = false;
             var isEnableAdmobBanner = RemoteConfigController.GetBoolConfig(FirebaseConfig.ENABLE_ADMOB_BANNER, true);
             _isShowAdmobBanner = isEnableAdmobBanner;
@@ -223,6 +230,8 @@ public class AdsController : MonoBehaviour
 
         void OnBannerAdLoadFailed(LoadAdError error)
         {
+            Debug.Log("OnBannerAdLoadFailed Failed");
+
             _isTryLoadAdmobBanner = true;
             _cooldownAdmobBannerTimer =
                 RemoteConfigController.GetFloatConfig(FirebaseConfig.COOLDOWN_ADMOB_REFRESH, 60);
@@ -235,19 +244,23 @@ public class AdsController : MonoBehaviour
 
     public void InitializeBannerMax()
     {
-        MaxSdkCallbacks.OnBannerAdLoadedEvent += OnBannerAdLoadedEvent;
-        MaxSdkCallbacks.OnBannerAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
-        MaxSdkCallbacks.OnBannerAdClickedEvent += OnBannerAdClickedEvent;
-        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+
         MaxSdk.CreateBanner(BanerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
         MaxSdk.SetBannerBackgroundColor(BanerAdUnitId, Color.clear);
         MaxSdk.SetBannerExtraParameter(BanerAdUnitId, "adaptive_banner", "true");
-        ShowBanner();
+
+        MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnBannerAdLoadedEvent;
+        MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnBannerAdLoadFailedEvent;
+        MaxSdkCallbacks.Banner.OnAdClickedEvent += OnBannerAdClickedEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnBannerAdExpandedEvent;
+        MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnBannerAdCollapsedEvent;
+        //ShowBanner();
     }
 
-    private void OnBannerAdLoadedEvent(string obj)
+    private void OnBannerAdLoadedEvent(string obj, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("Request success");
+        Debug.Log("MAX Banner loaded success");
         if (reloadBannerCoru != null)
         {
             StopCoroutine(reloadBannerCoru);
@@ -255,13 +268,13 @@ public class AdsController : MonoBehaviour
         }
     }
 
-    private void OnBannerAdClickedEvent(string obj)
+    private void OnBannerAdClickedEvent(string obj, MaxSdkBase.AdInfo adInfo)
     {
         //inter click
         Debug.Log("Click Baner !!!");
     }
 
-    private void OnBannerAdLoadFailedEvent(string arg1, int arg2)
+    private void OnBannerAdLoadFailedEvent(string arg1, MaxSdkBase.ErrorInfo errorInfo)
     {
         if (reloadBannerCoru != null)
         {
@@ -271,6 +284,12 @@ public class AdsController : MonoBehaviour
 
         reloadBannerCoru = Helper.StartAction(() => { ShowBanner(); }, 0.3f);
         StartCoroutine(reloadBannerCoru);
+    }
+
+    private void OnBannerAdExpandedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) {
+    }
+
+    private void OnBannerAdCollapsedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) {
     }
 
     private void InitRewardVideo()
@@ -625,7 +644,7 @@ public class AdsController : MonoBehaviour
         GameController.Instance.AnalyticsController.LogVideoRewardEligible();
         if (IsLoadedVideoReward())
         {
-            Debug.LogError("Da Load");
+            Debug.Log("Loaded Reward");
             isShowingAds = true;
             ResetCoolDownTime();
             
@@ -640,7 +659,7 @@ public class AdsController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("chua Load");
+            Debug.LogError("Not Loaded Reward");
             if (IsLoadedInterstitial())
             {
                 Debug.LogError("Show Inter");
@@ -650,7 +669,7 @@ public class AdsController : MonoBehaviour
 
                 ShowInterstitial( false,"other", actionIniterClose: () =>
                 {
-                    Debug.LogError("da show inter");
+                    Debug.LogError("showed inter");
                 },null);
                 GameController.Instance.AnalyticsController.LogWatchVideo(actionType, true, true, level);
                 Debug.Log("ShowInterstitial !!!");
@@ -675,16 +694,22 @@ public class AdsController : MonoBehaviour
 
     public void ShowBanner()
     {
-        if (SceneManager.GetActiveScene().name == SceneName.LOADING_SCENE)
+        // Đảm bảo đoạn mã chạy trên luồng chính
+        MainThreadDispatcher.Post((state) =>
         {
-            return;
-        }
-        if (UseProfile.IsRemoveAds)
-            return;
-        if (_isShowAdmobBanner)
-            ShowBannerAdmob();
-        else
-            ShowBannerMax();
+            if (SceneManager.GetActiveScene().name == SceneName.LOADING_SCENE)
+            {
+                return;
+            }
+            if (UseProfile.IsRemoveAds)
+                return;
+            Debug.Log("ShowBanner " + _isShowAdmobBanner);
+            if (_isShowAdmobBanner)
+                ShowBannerAdmob();
+            else
+                ShowBannerMax();
+        }, null);
+     
     }
 
     public void ShowBannerAdmob()
@@ -702,8 +727,8 @@ public class AdsController : MonoBehaviour
     public void DestroyBanner()
     {
         Debug.Log("destroy banner");
-        //MaxSdk.HideBanner(BanerAdUnitId);
-        //_bannerView?.Hide();
+        MaxSdk.HideBanner(BanerAdUnitId);
+        _bannerView?.Hide();
     }
 
     #endregion
@@ -714,13 +739,18 @@ public class AdsController : MonoBehaviour
 
     public void OnAppStateChanged(AppState state)
     {
-        if (isAdmobInitDone && SceneManager.GetActiveScene().name != "Loading")
-            if (state == AppState.Foreground && TimeManager.CaculateTime(oldTime, DateTime.Now) > 90 && !isShowingAds)
-            {
-                // COMPLETE: Show an app open ad if available.
-                AppOpenAdManager.Instance.ShowAdIfAvailable();
-                oldTime = DateTime.Now;
-            }
+        // Đảm bảo đoạn mã chạy trên luồng chính
+        MainThreadDispatcher.Post((state1) =>
+        {
+            if (isAdmobInitDone && SceneManager.GetActiveScene().name != "Loading Scene")
+                if (state == AppState.Foreground && TimeManager.CaculateTime(oldTime, DateTime.Now) > 90 && !isShowingAds)
+                {
+                    // COMPLETE: Show an app open ad if available.
+                    AppOpenAdManager.Instance.ShowAdIfAvailable();
+                    oldTime = DateTime.Now;
+                }
+        }, null);
+        
     }
 
     #endregion

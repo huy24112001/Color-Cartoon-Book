@@ -12543,10 +12543,10 @@ MonoBehaviour:
   - {fileID: 5523219812856752264}
   - {fileID: 2882600333656783037}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
+  - 0.3
+  - 0.3
   fullLinesImages:
   - {fileID: 8607598870558849543}
   - {fileID: 4065488319398618909}

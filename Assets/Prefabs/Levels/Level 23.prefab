@@ -2224,10 +2224,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 4631166616984447924}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -7535,10 +7535,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 8147559995630663966}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -9408,9 +9408,9 @@ MonoBehaviour:
     - {r: 1, g: 0.6627451, b: 0.654902, a: 1}
     - {r: 0.7725491, g: 0.8117648, b: 0.4784314, a: 1}
   - colors:
-    - {r: 0.9568628, g: 0.9450981, b: 0.8941177, a: 1}
-    - {r: 0.9568628, g: 0.9450981, b: 0.8941177, a: 1}
-    - {r: 1, g: 0.9490197, b: 0.8000001, a: 1}
+    - {r: 0.54509807, g: 0.8470589, b: 0.96470594, a: 1}
+    - {r: 0.96470594, g: 0.79215693, b: 0.78823537, a: 1}
+    - {r: 0.96470594, g: 0.8470589, b: 0.37647063, a: 1}
   fullColorParts:
   - {fileID: 6283173027787922815}
   - {fileID: 3656850031758676284}
@@ -9606,10 +9606,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 1814216169132606908}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0

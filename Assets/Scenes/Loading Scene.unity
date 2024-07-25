@@ -251,9 +251,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1115756056802909343, guid: 0dda433e47e584342b3e498a6eac1f95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1115756056809114776, guid: 0dda433e47e584342b3e498a6eac1f95, type: 3}
       propertyPath: m_Name
       value: GameController
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115756056809114776, guid: 0dda433e47e584342b3e498a6eac1f95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115756056809114780, guid: 0dda433e47e584342b3e498a6eac1f95, type: 3}
+      propertyPath: isLoadingShow
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1115756056809114783, guid: 0dda433e47e584342b3e498a6eac1f95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -673,6 +685,7 @@ MonoBehaviour:
   posBoundLevel: {x: 0, y: 0, z: 0}
   firstOrthographicSize: 0
   firstPositionCamera: {x: 0, y: 0, z: 0}
+  penObject: {fileID: 0}
 --- !u!1 &885621111
 GameObject:
   m_ObjectHideFlags: 0

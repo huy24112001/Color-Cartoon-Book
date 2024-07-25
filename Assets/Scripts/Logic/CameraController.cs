@@ -42,7 +42,7 @@ public class CameraController : MonoBehaviour
         mainCamera.DOOrthoSize(newSize, speed);
 
         float sc = newSize / 17f;
-        penObject.localScale = new Vector3(0.75f * sc, 0.75f * sc, 0.75f * sc);
+        penObject.localScale = Vector3.one * 0.75f * sc;
 
         Vector3 pos = target.position;
         pos.z = -10f;
@@ -52,9 +52,9 @@ public class CameraController : MonoBehaviour
     public void MoveToOriginTarget()
     {
         //Debug.Log("MoveToOriginTarget");
-
+        penObject.localScale = Vector3.one * 0.75f * firstOrthographicSize / 17f ;
         mainCamera.transform.DOMove(firstPositionCamera, speed);
-        mainCamera.DOOrthoSize(firstOrthographicSize == 0f ? 15f : firstOrthographicSize, speed);
+        mainCamera.DOOrthoSize(firstOrthographicSize, speed);
     }
 
     public void OnEndChangeOrthoSize(Bounds bounds)

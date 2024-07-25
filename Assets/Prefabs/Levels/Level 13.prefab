@@ -11363,7 +11363,7 @@ Transform:
   m_GameObject: {fileID: 7809757649287158870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.05, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11415,8 +11415,8 @@ MonoBehaviour:
   - {fileID: 7779779296645670049}
   - {fileID: 2182532848447898946}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
   - 0.6
   fullLinesImages:
   - {fileID: 295180965069851930}

@@ -45,7 +45,7 @@ public class LevelController : MonoBehaviour
     bool isCalculatedOffset;
     Vector3 positionForClamp;
 
-    private List<int> listColorReward = new List<int> { 3, 1, 3, 3, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 2, 1 };
+    private List<int> listColorReward = new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
 
     [Header("# ========== Instance's References ==========")]
@@ -162,10 +162,10 @@ public class LevelController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (isDoneCurrentLine == true && !isDrawing)
-        {
-            Debug.Log("Run");
-        }
+        //if (isDoneCurrentLine == true && !isDrawing)
+        //{
+        //    Debug.Log("Run");
+        //}
         if (gameState == GameState.Color)
         {
             if (Input.touchCount > 0 && GameManager.Instance. CanDragPen)
@@ -220,6 +220,7 @@ public class LevelController : MonoBehaviour
             actionNotLoadedVideo: () =>
             {
                 Debug.Log("Video Reawart Not Load !! ");
+                ExecuteColorChangeActions(index);
             },
             actionClose: () =>
             {

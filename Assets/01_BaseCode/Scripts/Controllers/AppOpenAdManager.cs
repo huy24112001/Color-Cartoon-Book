@@ -128,7 +128,7 @@ public class AppOpenAdManager
         ad.OnAdImpressionRecorded += HandleAdDidRecordImpression;
         ad.OnAdPaid += HandlePaidEvent;
         ad.Show();
-        Debug.Log("goi");
+        Debug.Log("Show app open");
     }
 
     public void ResetCoolDownTime()

@@ -20,14 +20,14 @@ public class LoadingScene : MonoBehaviour
         if (loadProgress > 1) loadProgress = 1;
         loadingTraceProgress.UpdateProgress(loadProgress);
 
-        if (loadProgress >= 0.5f && !isCheck)
+        if (loadProgress >= 0.65f && !isCheck)
         {
             isCheck = false;
             isStart = false;
             AppOpenAdManager.Instance.ShowAdIfAvailable(() =>
             {
                 //SceneManager.LoadScene(sceneNameToLoad);
-                GameController.Instance.admobAds.InitBannerAdmob();
+                //GameController.Instance.admobAds.InitBannerAdmob();
                 isStart = true;
                 isCheck = true;
             });

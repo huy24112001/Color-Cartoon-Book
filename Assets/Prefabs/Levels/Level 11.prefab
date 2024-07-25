@@ -2032,10 +2032,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 4551434405411072315}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -6014,10 +6014,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 1341281457616684435}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -9058,8 +9058,8 @@ MonoBehaviour:
   - {fileID: 1796908833023847993}
   - {fileID: 5988041907536437887}
   traceProgressSpeeds:
-  - 0.6
-  - 0.6
+  - 0.3
+  - 0.3
   fullLinesImages:
   - {fileID: 4998493019442223108}
   - {fileID: 2241237856010271971}

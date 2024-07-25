@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "LJDQIBJNC6YPVCMR",
         "name": "com.gplay.coloring.asmr.cartoon.book",
-        "processId": 17316,
+        "processId": 12671,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -60,6 +60,30 @@
             "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.gplay.coloring.asmr.cartoon.book",
             "processId": 17316,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 32520,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 30418,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 9527,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 12671,
             "exited": false
         }
     ],

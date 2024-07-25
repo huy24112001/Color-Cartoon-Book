@@ -304,8 +304,8 @@ public class GameManager : MonoBehaviour
             hintImage[i].sprite = hintSprites[PlayerData.CurrentLevel - 1];
             hintImage[i].SetNativeSize();
         }
-        hintImage[0].transform.localScale = Vector3.one * 0.2f;
-        hintImage[1].transform.localScale = Vector3.one * 0.1f;
+        hintImage[0].transform.localScale = Vector3.one * 0.16f;
+        hintImage[1].transform.localScale = Vector3.one * 0.08f;
         pen.SetActive(true);
         canDragPen = false;
 
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
         //    cameraController.firstOrthographicSize = MainCamera.orthographicSize;
         //}
         MainCamera.transform.position = new Vector3(0, 0, -10);
-
+        //MainCamera.orthographicSize = 17f;
         Bounds bounds = currentLevel.CalculateBounds(currentLevel.gameObject.transform);
         cameraController.firstOrthographicSize = MainCamera.orthographicSize * CalculatorScaleOrthographicSize(bounds, rectLevelObject);
 
@@ -372,8 +372,8 @@ public class GameManager : MonoBehaviour
             hintImage[i].sprite = hintSprites[levelItem.ID];
             hintImage[i].SetNativeSize();
         }
-        hintImage[0].transform.localScale = Vector3.one * 0.2f;
-        hintImage[1].transform.localScale = Vector3.one * 0.1f;
+        hintImage[0].transform.localScale = Vector3.one * 0.16f;
+        hintImage[1].transform.localScale = Vector3.one * 0.08f;
         pen.SetActive(true);
         canDragPen = false;
 
