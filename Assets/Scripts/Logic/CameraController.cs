@@ -197,8 +197,8 @@ public class CameraController : MonoBehaviour
         captureRect.width *= screenWidthRatio;
         captureRect.height *= screenHeightRatio;
 
-        captureRect.width = Mathf.Abs(captureRect.width)*1.1f/3f;
-        captureRect.height = Mathf.Abs(captureRect.height)*1.1f/3f;
+        captureRect.width = Mathf.Abs(captureRect.width)*1f/3f;
+        captureRect.height = Mathf.Abs(captureRect.height)*1f/3f;
         Debug.Log("screenArea center 2 : " + captureRect.center);
 
         return captureRect;

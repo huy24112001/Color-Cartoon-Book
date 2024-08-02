@@ -59,7 +59,6 @@ public class GameController : MonoBehaviour
 
         GplayUMP.ShowConsentForm((consert) =>
         {
-            // Đảm bảo đoạn mã chạy trên luồng chính
             MainThreadDispatcher.Post((state) =>
             {
                 Debug.Log("Consent : " + consert);
@@ -73,11 +72,10 @@ public class GameController : MonoBehaviour
                 }
 #endif
 
-                //Init(); // Gọi hàm Init sau khi gán giá trị
+                Init(); 
             }, null);
         });
 
-        // Init();
     }
 
     public void Init()

@@ -9402,10 +9402,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 8911434401784183708}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -9776,10 +9776,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 5941806545493375584}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -12198,7 +12198,7 @@ Transform:
   m_GameObject: {fileID: 7809757649287158870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7, y: 3.7, z: 0}
+  m_LocalPosition: {x: 1.7, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12292,7 +12292,7 @@ MonoBehaviour:
   - colors:
     - {r: 1, g: 0.95294124, b: 0.9176471, a: 1}
     - {r: 0.70980394, g: 0.43137258, b: 0.3921569, a: 1}
-    - {r: 1, g: 1, b: 1, a: 1}
+    - {r: 0.90196085, g: 0.54901963, b: 0.5921569, a: 1}
   - colors:
     - {r: 1, g: 0.7607844, b: 0.41176474, a: 1}
     - {r: 1, g: 0.98823535, b: 0.82745105, a: 1}
@@ -12825,10 +12825,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 6562833257841196031}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0
@@ -13536,10 +13536,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 9099911544821135926}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 1
   useTargetAsV3: 0
@@ -14943,10 +14943,10 @@ MonoBehaviour:
   autoKill: 0
   autoGenerate: 1
   isActive: 1
-  isValid: 0
-  target: {fileID: 0}
+  isValid: 1
+  target: {fileID: 8426464238777208869}
   animationType: 6
-  targetType: 0
+  targetType: 7
   forcedTargetType: 0
   autoPlay: 0
   useTargetAsV3: 0

@@ -9,6 +9,7 @@ using PaintIn2D;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class LevelController : MonoBehaviour
 {
@@ -200,6 +201,9 @@ public class LevelController : MonoBehaviour
     public void OnDrawLineDone()
     {
         GameManager.Instance.Pen.SetActive(false);
+        GameManager.Instance.Pen.transform.position = Vector3.zero;
+        GameManager.Instance.PenSpriteGO.transform.position = Vector3.zero;
+        Debug.Log("Pos : "  + GameManager.Instance.PenSpriteGO.transform.position);
         AudioManager.Instance.StopRustleLoop();
         for (int i = 0; i < colorOptions[currentColorIndex].colors.Length; i++)
         {
@@ -272,7 +276,8 @@ public class LevelController : MonoBehaviour
             isFullFilled = false;
             hintSprites[currentColorIndex].gameObject.SetActive(true);
             //hintSprites[currentColorIndex].gameObject.transform.GetComponents<DOTweenAnima;
-
+            GameManager.Instance.Pen.transform.position = Vector3.zero;
+            GameManager.Instance.PenSpriteGO.transform.position = Vector3.zero;
             for (int i = 0; i < colorOptions[currentColorIndex].colors.Length; i++)
             {
                 GameManager.Instance.SetColorButtons(i, colorOptions[currentColorIndex].colors[i]);
@@ -281,6 +286,7 @@ public class LevelController : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.setScaleBtnTweeners();
             UIManager.Instance.OpenCompletedCanvas(accuracy / hintSprites.Count);
             // Tính bounding box bao quanh tất cả các node con
             Bounds bounds = CalculateBounds(this.gameObject.transform);

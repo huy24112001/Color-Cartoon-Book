@@ -80,7 +80,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] DOTweenAnimation[] btnTweeners;
 
 
-
+    public void setScaleBtnTweeners()
+    {
+        btnTweeners[0].transform.localScale = Vector3.zero;
+        btnTweeners[1].transform.localScale = Vector3.zero;
+    }
 
     [Button("get pos")]
 
@@ -165,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void SetColorButtons(int index, Color color)
     {
+        //penSpriteGO.transform.position = Vector3.zero;
         chooseColorImages[index].color = color;
         chooseColorImages[index].transform.parent.gameObject.SetActive(true);
         colorButtons[index].GetComponent<DOTweenAnimation>().DORestart();
@@ -306,6 +311,8 @@ public class GameManager : MonoBehaviour
         }
         hintImage[0].transform.localScale = Vector3.one * 0.16f;
         hintImage[1].transform.localScale = Vector3.one * 0.08f;
+        penColor.sprite = penSkinSpritesWhite[PlayerData.UsingPen];
+        penColor.transform.GetChild(0).gameObject.transform.GetComponent<SpriteRenderer>().sprite = penSkinSpritesShadow[PlayerData.UsingPen];
         pen.SetActive(true);
         canDragPen = false;
 
@@ -334,8 +341,8 @@ public class GameManager : MonoBehaviour
         cameraController.enabled = true;
         GameManager.Instance.ColorPenClampPoints[0].position = topRight.transform.position;
         GameManager.Instance.ColorPenClampPoints[1].position = bottomLeft.transform.position;
-        btnTweeners[0].GetComponent<RectTransform>().transform.localScale = Vector3.zero;
-        btnTweeners[1].GetComponent<RectTransform>().transform.localScale = Vector3.zero;
+        btnTweeners[0].DORewind();
+        btnTweeners[1].DORewind();
 
 
     }
@@ -402,8 +409,8 @@ public class GameManager : MonoBehaviour
         cameraController.enabled = true;
         GameManager.Instance.ColorPenClampPoints[0].position = topRight.transform.position;
         GameManager.Instance.ColorPenClampPoints[1].position = bottomLeft.transform.position;
-        btnTweeners[0].GetComponent<RectTransform>().transform.localScale = Vector3.zero;
-        btnTweeners[1].GetComponent<RectTransform>().transform.localScale = Vector3.zero;
+        btnTweeners[0].DORewind();
+        btnTweeners[1].DORewind();
     }
 
     public void DestroyCurrentLevel()
@@ -495,6 +502,7 @@ public class GameManager : MonoBehaviour
         //mask.SetActive(false);
         btnTweeners[0].DORestart();
         btnTweeners[1].DORestart();
+ 
         congratsVFX.Play(true);
         AudioManager.Instance.Congrats();
     }

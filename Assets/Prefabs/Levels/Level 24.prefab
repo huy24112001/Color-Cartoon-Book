@@ -7673,15 +7673,15 @@ MonoBehaviour:
   - fullColoredSprites:
     - {fileID: 21300000, guid: 3e9f8108dec3b4e43a20deabd538c344, type: 3}
     - {fileID: 21300000, guid: 07808ce8fb3feaf40987d8df763499ed, type: 3}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 40074cdc1f0c8d64995003403449b381, type: 3}
   - fullColoredSprites:
     - {fileID: 21300000, guid: 26fd40f65f1ea174dbbb4d1b79085874, type: 3}
     - {fileID: 21300000, guid: 830e846a0a7f60e46a575750d30ef68a, type: 3}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 5a03e5bd200034f44bf8e339388a5a7d, type: 3}
   - fullColoredSprites:
     - {fileID: 21300000, guid: 3eedc2fe3c69bc94faf87f67ee2e3afd, type: 3}
     - {fileID: 21300000, guid: 149158bc6bc70b44a9b1edb1e6c58586, type: 3}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: c875b1106d64b4f44917ec375f8d0a21, type: 3}
   currentColorOption: 0
   paintableSprites:
   - {fileID: 2785251933954509946}

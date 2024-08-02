@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
             accuracyProgressText.text = "Accuracy " + (accuracyProgressBar.fillAmount * 100).ToString("F0") + "%";
         });
 
-        if (accuracyRate >= 0.6f) tmpPenProgress = 0.3f;
+        if (accuracyRate >= 0.6f) tmpPenProgress = 0.9f;
         else if (accuracyRate >= 0.3f) tmpPenProgress = 0.2f;
         else tmpPenProgress = 0.1f;
         //mask.SetActive(true);
@@ -137,18 +137,18 @@ public class UIManager : MonoBehaviour
         newPenImagesFore[0].fillAmount = 0;
         newPenImagesFore[1].fillAmount = 0;
         isNewPenUnlockable = false;
+
         PlayerData.CurrentPenProgress = 0;
-        if (PlayerData.TotalPenUnlocked < 4)
+        PlayerData.TotalPenUnlocked++;
+        
+        if (PlayerData.TotalPenUnlocked == 5)
         {
-            PlayerData.TotalPenUnlocked++;
-        }
-        else
-        {
+            PlayerData.OpenLastPen = 1;
             forAllUnlockedState[0].SetActive(true);
             forAllUnlockedState[1].SetActive(false);
             forAllUnlockedState[2].SetActive(false);
+            return ;
         }
-        if (PlayerData.TotalPenUnlocked == 4) PlayerData.OpenLastPen = 1;
 
         newPenImagesBack[0].sprite = newPenSpritesWhite[PlayerData.TotalPenUnlocked];
         newPenImagesBack[1].sprite = newPenSpritesShadow[PlayerData.TotalPenUnlocked];
@@ -166,30 +166,41 @@ public class UIManager : MonoBehaviour
         }
         AudioManager.Instance.Click();
         AudioManager.Instance.StopRustleLoop();
-        newPenImagesBack[0].sprite = newPenSpritesWhite[PlayerData.TotalPenUnlocked];
-        newPenImagesBack[1].sprite = newPenSpritesShadow[PlayerData.TotalPenUnlocked];
-        newPenImagesFore[0].sprite = newPenSpritesWhite[PlayerData.TotalPenUnlocked];
-        newPenImagesFore[1].sprite = newPenSpritesShadow[PlayerData.TotalPenUnlocked];
 
-        float progress = PlayerData.CurrentPenProgress;
-        penProgressBar.fillAmount = progress;
-
-        progress += tmpPenProgress;
-        if (progress > 1) progress = 1;
-        PlayerData.CurrentPenProgress = progress;
-        newPenImagesFore[0].DOFillAmount(progress, 1f);
-        newPenImagesFore[1].DOFillAmount(progress, 1f);
-        newPenImagesFore[0].color = penWhiteForeColors[PlayerData.TotalPenUnlocked];
-        penProgressBar.DOFillAmount(progress, 1f).OnPlay(() =>
+        if (PlayerData.OpenLastPen == 0)
         {
-            AudioManager.Instance.Fill();
-        }).OnUpdate(() =>
-        {
-            penProgressText.text = "Progress " + (penProgressBar.fillAmount * 100).ToString("F0") + "%";
-        });
-        if (progress == 1) isNewPenUnlockable = true;
+            newPenImagesBack[0].sprite = newPenSpritesWhite[PlayerData.TotalPenUnlocked];
+            newPenImagesBack[1].sprite = newPenSpritesShadow[PlayerData.TotalPenUnlocked];
+            newPenImagesFore[0].sprite = newPenSpritesWhite[PlayerData.TotalPenUnlocked];
+            newPenImagesFore[1].sprite = newPenSpritesShadow[PlayerData.TotalPenUnlocked];
+            Debug.Log("PlayerData.TotalPenUnlocked " + PlayerData.TotalPenUnlocked);
 
-        tmpPenProgress = 0;
+            float progress = PlayerData.CurrentPenProgress;
+            penProgressBar.fillAmount = progress;
+
+            progress += tmpPenProgress;
+            if (progress > 1) progress = 1;
+            PlayerData.CurrentPenProgress = progress;
+            newPenImagesFore[0].DOFillAmount(progress, 1f);
+            newPenImagesFore[1].DOFillAmount(progress, 1f);
+            newPenImagesFore[0].color = penWhiteForeColors[PlayerData.TotalPenUnlocked];
+            penProgressBar.DOFillAmount(progress, 1f).OnPlay(() =>
+            {
+                AudioManager.Instance.Fill();
+            }).OnUpdate(() =>
+            {
+                penProgressText.text = "Progress " + (penProgressBar.fillAmount * 100).ToString("F0") + "%";
+            });
+            if (progress == 1) isNewPenUnlockable = true;
+
+            tmpPenProgress = 0;
+        }
+        else
+        {
+            forAllUnlockedState[0].SetActive(true);
+            forAllUnlockedState[1].SetActive(false);
+            forAllUnlockedState[2].SetActive(false);
+        }
 
         completedCanvas.SetActive(false);
         penProgressCanvas.SetActive(true);
@@ -204,16 +215,16 @@ public class UIManager : MonoBehaviour
         AudioManager.Instance.Click();
         AudioManager.Instance.StopRustleLoop();
 
+        if (isNewPenUnlockable) OnUnlockPen();
+
         backgrounds[0].SetActive(true);
         backgrounds[1].SetActive(false);
         penProgressCanvas.SetActive(false);
         gameplayCanvases[0].SetActive(true);
         gameplayCanvases[1].SetActive(true);
-
         GameManager.Instance.LoadLevel();
         SetLevelText(PlayerData.CurrentLevel);
-
-        if (isNewPenUnlockable) OnUnlockPen();
+    
     }
 
     public void OnReplay()

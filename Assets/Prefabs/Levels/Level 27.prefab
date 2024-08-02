@@ -13904,7 +13904,7 @@ MonoBehaviour:
   - fullColoredSprites:
     - {fileID: 21300000, guid: e3c054f2162ee3245aea7ad1b00d4541, type: 3}
     - {fileID: 21300000, guid: 459bd726a63034544ad179eccdbef13d, type: 3}
-    - {fileID: 21300000, guid: f6e0901a1f5f5ab48860af149199f15e, type: 3}
+    - {fileID: 21300000, guid: beae82f034470e84b94676deecba287f, type: 3}
   - fullColoredSprites:
     - {fileID: 21300000, guid: f36508725b172634cb142a0244e4ee08, type: 3}
     - {fileID: 21300000, guid: e8d2e588bc8e4f745904f03bd1938896, type: 3}

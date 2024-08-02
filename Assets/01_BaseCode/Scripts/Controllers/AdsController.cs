@@ -42,7 +42,7 @@ public class AdsController : MonoBehaviour
   private string _adUnitId = "unused";
 #endif
     private RewardedInterstitialAd rewardedInterstitialAd;
-    public DateTime countdownAds;
+    public float countdownAds;
     bool isShowingAds;
     private bool _isInited;
     private IEnumerator reloadBannerCoru;
@@ -57,8 +57,6 @@ public class AdsController : MonoBehaviour
     public void Init()
     {
         ResetCoolDownTime();
-        countdownAdsclick = 0;
-
         #region Applovin Ads
 
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) =>
@@ -86,12 +84,7 @@ public class AdsController : MonoBehaviour
         MobileAds.Initialize((initStatus) =>
         {
             Debug.Log("===== Init Admob Done ====");
-            AppOpenAdManager.Instance.LoadAd(() =>
-            {
-                //if (SceneManager.GetActiveScene().name == SceneName.LOADING_SCENE)
-                //{
-                //}
-            });
+            AppOpenAdManager.Instance.LoadAd();
             InitBannerAdmob();
             AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
             isAdmobInitDone = true;
@@ -166,8 +159,11 @@ public class AdsController : MonoBehaviour
     private void RefreshAdmobBanner()
     {
         _isTryLoadAdmobBanner = true;
-         if (!isGamePlay) return;
+        Debug.Log("refresh " + _cooldownAdmobBannerTimer);
+        if (!isGamePlay) return;
+        Debug.Log("refresh 1 " + _cooldownAdmobBannerTimer);
         _bannerView.LoadAd(bannerHomeLoadRequest);
+        _cooldownAdmobBannerTimer = 10000;
     }
 
     public void LoadBannerAdmob()
@@ -176,16 +172,17 @@ public class AdsController : MonoBehaviour
             AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
         _bannerView?.Destroy();
         _bannerView = new BannerView(BANNER_ADMOB_ID, adaptiveSize, AdPosition.Bottom);
-        //_bannerView.Hide();
+        _bannerView.Hide();
         bannerHomeLoadRequest = new AdRequest();
         lastRefreshCollapseBanner = DateTime.Now;
         IsCooldownAdmobBanner = true;
         //Admob request
         bannerHomeLoadRequest.Extras.Add("collapsible", "bottom");
-        bannerHomeLoadRequest.Extras.Add("collapsible_request_id", Guid.NewGuid().ToString());
+        //bannerHomeLoadRequest.Extras.Add("collapsible_request_id", Guid.NewGuid().ToString());
         _isTryLoadAdmobBanner = true;
         _bannerView.LoadAd(bannerHomeLoadRequest);
-        _bannerView.Hide();
+
+        //_bannerView.Hide();
         Debug.Log("LoadBannerAdmob");
         _bannerView.OnBannerAdLoaded += OnBannerAdLoaded;
 
@@ -200,7 +197,7 @@ public class AdsController : MonoBehaviour
             var isEnableAdmobBanner = RemoteConfigController.GetBoolConfig(FirebaseConfig.ENABLE_ADMOB_BANNER, true);
             _isShowAdmobBanner = isEnableAdmobBanner;
             _cooldownAdmobBannerTimer =
-                RemoteConfigController.GetFloatConfig(FirebaseConfig.COOLDOWN_ADMOB_REFRESH, 40);
+                RemoteConfigController.GetFloatConfig(FirebaseConfig.COOLDOWN_ADMOB_REFRESH, 60);
             ShowBanner();
         }
 
@@ -230,11 +227,14 @@ public class AdsController : MonoBehaviour
 
         void OnBannerAdLoadFailed(LoadAdError error)
         {
-            Debug.Log("OnBannerAdLoadFailed Failed");
+            Debug.Log("Banner view failed to load an ad with error : " + error);
 
             _isTryLoadAdmobBanner = true;
+            _isShowAdmobBanner = false;
             _cooldownAdmobBannerTimer =
                 RemoteConfigController.GetFloatConfig(FirebaseConfig.COOLDOWN_ADMOB_REFRESH, 60);
+            //_cooldownAdmobBannerTimer = 5;
+            //ShowBanner();
         }
     }
 
@@ -255,7 +255,7 @@ public class AdsController : MonoBehaviour
         MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
         MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnBannerAdExpandedEvent;
         MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnBannerAdCollapsedEvent;
-        //ShowBanner();
+        ShowBanner();
     }
 
     private void OnBannerAdLoadedEvent(string obj, MaxSdkBase.AdInfo adInfo)
@@ -271,11 +271,13 @@ public class AdsController : MonoBehaviour
     private void OnBannerAdClickedEvent(string obj, MaxSdkBase.AdInfo adInfo)
     {
         //inter click
-        Debug.Log("Click Baner !!!");
+        Debug.Log("Click Banner MAX!!!");
     }
 
     private void OnBannerAdLoadFailedEvent(string arg1, MaxSdkBase.ErrorInfo errorInfo)
     {
+        Debug.Log("Banner MAX loaded failed with err : " + errorInfo);
+
         if (reloadBannerCoru != null)
         {
             StopCoroutine(reloadBannerCoru);
@@ -307,7 +309,7 @@ public class AdsController : MonoBehaviour
 
     private void OnInterstitialFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo info)
     {
-        Debug.Log("adUnitId : " + adUnitId + "errorcode :" + info.Code);
+        Debug.Log("Show Interstitial Error with " + info);
         _isLoading = false;
         actionInterstitialClose?.Invoke();
         actionInterstitialClose = null;
@@ -329,6 +331,8 @@ public class AdsController : MonoBehaviour
 
     private void InterstitialFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo info, MaxSdkBase.AdInfo adInfo)
     {
+        Debug.Log("Display Interstitial Error with " + info);
+
         _isLoading = false;
         actionInterstitialClose?.Invoke();
         actionInterstitialClose = null;
@@ -349,10 +353,10 @@ public class AdsController : MonoBehaviour
 
         actionInterstitialClose?.Invoke();
         actionInterstitialClose = null;
-        countdownAdsclick = 0;
-        RequestInterstitial();
         ResetCoolDownTime();
-        Invoke("RefeshCloseAds", 1);
+        RequestInterstitial();
+        //ResetCoolDownTime();
+        Invoke("RefreshCloseAds", 1);
 
         //if (GamePlayControl.Instance != null)
         //{
@@ -363,9 +367,8 @@ public class AdsController : MonoBehaviour
     public void ResetCoolDownTime()
     {
         countdownAdsclick = 0;
-        countdownAds = DateTime.Now.AddSeconds(90);
-        countdownAdsclick = 0;
-        AppOpenAdManager.Instance.ResetCoolDownTime();
+        countdownAds = 0;
+        //AppOpenAdManager.Instance.ResetCoolDownTime();
         //if (SceneManager.GetActiveScene().name == SceneName.GAME_PLAY) GameManager.Instance.ResetInterAdsCoolDown();
     }
     
@@ -393,14 +396,17 @@ public class AdsController : MonoBehaviour
             return false;
         }
 
-        if (countdownAds > DateTime.Now && !isShowImmediately)
+        if (countdownAds > RemoteConfigController.GetFloatConfig(FirebaseConfig.DELAY_SHOW_INITSTIALL, 100) || isShowImmediately)
+        {
+            ShowInterstitialHandle(actionWatchLog, actionIniterClose);
+        }
+        else
         {
             actionIniterClose?.Invoke();
             Debug.Log("cooldowning");
             return false;
         }
-        ShowInterstitialHandle(actionWatchLog, actionIniterClose);
-        
+
         return true;
     }
     
@@ -468,8 +474,7 @@ public class AdsController : MonoBehaviour
                     this.actionInterstitialClose = actionIniterClose;
                     IsCooldownAdmobBanner = false;
                     MaxSdk.ShowInterstitial(InterstitialAdUnitId, actionWatchLog);
-
-                    countdownAdsclick = 0;
+                    ResetCoolDownTime();
                     GameController.Instance.AnalyticsController.LogInterShow(actionWatchLog);
 
                     UseProfile.NumberOfAdsInDay = UseProfile.NumberOfAdsInDay + 1;
@@ -481,8 +486,7 @@ public class AdsController : MonoBehaviour
                 this.actionInterstitialClose = actionIniterClose;
                 IsCooldownAdmobBanner = false;
                 MaxSdk.ShowInterstitial(InterstitialAdUnitId, actionWatchLog);
-
-                countdownAdsclick = 0;
+                ResetCoolDownTime();
                 GameController.Instance.AnalyticsController.LogInterShow(actionWatchLog);
 
                 UseProfile.NumberOfAdsInDay = UseProfile.NumberOfAdsInDay + 1;
@@ -532,7 +536,7 @@ public class AdsController : MonoBehaviour
 
     private void OnRewardedAdFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorCode)
     {
-        Debug.Log("Rewarded ad failed to load with error code: " + errorCode.Code);
+        Debug.Log("Rewarded ad failed to load with error code: " + errorCode);
         Invoke("LoadRewardedAd", 15);
         GameController.Instance.AnalyticsController.LogVideoRewardLoadFail(actionWatchVideo.ToString(),
             errorCode.ToString());
@@ -540,7 +544,7 @@ public class AdsController : MonoBehaviour
 
     private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorCode, MaxSdkBase.AdInfo info)
     {
-        Debug.Log("Rewarded ad failed to display with error code: " + errorCode.Code);
+        Debug.Log("Rewarded ad failed to display with error code: " + errorCode);
         isVideoDone = false;
 
         //if (IsLoadedInterstitial())
@@ -593,7 +597,6 @@ public class AdsController : MonoBehaviour
         _actionRewardVideo?.Invoke();
         _actionRewardVideo = null;
         ResetCoolDownTime();
-        countdownAdsclick = 0;
         GameController.Instance.AnalyticsController.LogVideoRewardShowDone(actionWatchVideo.ToString());
     }
 
@@ -646,9 +649,7 @@ public class AdsController : MonoBehaviour
         {
             Debug.Log("Loaded Reward");
             isShowingAds = true;
-            ResetCoolDownTime();
-            
-            countdownAdsclick = 0;
+            ResetCoolDownTime();      
             this._actionNotLoadedVideo = actionNotLoadedVideo;
             this._actionClose = actionClose;
             this._actionRewardVideo = actionReward;
@@ -674,7 +675,6 @@ public class AdsController : MonoBehaviour
                 GameController.Instance.AnalyticsController.LogWatchVideo(actionType, true, true, level);
                 Debug.Log("ShowInterstitial !!!");
                 ResetCoolDownTime();
-                countdownAdsclick = 0;
                 return true;
             }
             else
@@ -741,13 +741,14 @@ public class AdsController : MonoBehaviour
     {
         // Đảm bảo đoạn mã chạy trên luồng chính
         MainThreadDispatcher.Post((state1) =>
-        {
+        {           
             if (isAdmobInitDone && SceneManager.GetActiveScene().name != "Loading Scene")
-                if (state == AppState.Foreground && TimeManager.CaculateTime(oldTime, DateTime.Now) > 90 && !isShowingAds)
+                if (state == AppState.Foreground && TimeManager.CaculateTime(oldTime, DateTime.Now) > 60 && !isShowingAds)
                 {
                     // COMPLETE: Show an app open ad if available.
                     AppOpenAdManager.Instance.ShowAdIfAvailable();
                     oldTime = DateTime.Now;
+                    ResetCoolDownTime();
                 }
         }, null);
         
@@ -895,7 +896,7 @@ public class AdsController : MonoBehaviour
         }
 
         //if (GamePlayControl.Instance != null)
-        //    countdownAds += Time.deltaTime;
+        countdownAds += Time.deltaTime;
         countdownAdsclick += Time.deltaTime;
     }
 }

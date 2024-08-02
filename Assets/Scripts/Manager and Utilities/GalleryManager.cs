@@ -20,25 +20,19 @@ public class GalleryManager : MonoBehaviour
         //    MaintainAspect(rawImage);
 
         //}
-
-
-   
-
         directoryPath = Application.persistentDataPath + "/";
         if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
         //Debug.Log("direct " + directoryPath);
         if (PlayerData.HasPlayed == 0) return;
 
         int tmpHighestLevel = PlayerData.HighestLevel - 1;
-        if (PlayerData.HighestLevel == 20)
+        if (PlayerData.HighestLevel == 30)
             tmpHighestLevel++;
         Debug.Log("tmp " + tmpHighestLevel);
         for (int i = 0; i < tmpHighestLevel; i++)
         {
             levelItems[i].LoadImage();
         }
-
-   
 
     }
   
@@ -75,13 +69,13 @@ public class GalleryManager : MonoBehaviour
         if (PlayerData.HasPlayed == 0) return;
 
         int tmpHighestLevel = PlayerData.HighestLevel - 1;
-        if (PlayerData.HighestLevel == 20)
+        if (PlayerData.HighestLevel == 30)
             tmpHighestLevel++;
         //Debug.Log("FFF " + tmpHighestLevel);
 
         for (int i = 0; i < tmpHighestLevel; i++)
         {
-            levelItems[i]. LoadImage();
+            levelItems[i].LoadImage();
             levelItems[i].GetComponent<Button>().interactable = true;
             levelItems[i].gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }

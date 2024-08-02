@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "LJDQIBJNC6YPVCMR",
         "name": "com.gplay.coloring.asmr.cartoon.book",
-        "processId": 12671,
+        "processId": 22427,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -28,62 +28,44 @@
         },
         {
             "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.master.draw.asmr",
-            "processId": 7618,
-            "exited": true
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.master.draw.asmr",
-            "processId": 30441,
-            "exited": true
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.master.draw.asmr",
-            "processId": 32452,
-            "exited": true
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.master.draw.asmr",
-            "processId": 25221,
-            "exited": true
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.miui.home",
-            "processId": 2298,
+            "processId": 2584,
             "exited": false
         },
         {
             "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.gplay.coloring.asmr.cartoon.book",
-            "processId": 17316,
+            "processId": 7054,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 9092,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 9614,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 17454,
+            "exited": true
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 20030,
             "exited": false
         },
         {
             "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.gplay.coloring.asmr.cartoon.book",
-            "processId": 32520,
-            "exited": false
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.asmr.cartoon.book",
-            "processId": 30418,
-            "exited": false
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.asmr.cartoon.book",
-            "processId": 9527,
-            "exited": false
-        },
-        {
-            "deviceId": "LJDQIBJNC6YPVCMR",
-            "name": "com.gplay.coloring.asmr.cartoon.book",
-            "processId": 12671,
+            "processId": 22427,
             "exited": false
         }
     ],

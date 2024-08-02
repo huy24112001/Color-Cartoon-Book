@@ -16,11 +16,11 @@ public class LoadingScene : MonoBehaviour
     {
         if (!isStart) return;
 
-        loadProgress += Time.deltaTime / 2.5f;
+        loadProgress += Time.deltaTime / 3f;
         if (loadProgress > 1) loadProgress = 1;
         loadingTraceProgress.UpdateProgress(loadProgress);
 
-        if (loadProgress >= 0.65f && !isCheck)
+        if (loadProgress >= 0.75f && !isCheck)
         {
             isCheck = false;
             isStart = false;

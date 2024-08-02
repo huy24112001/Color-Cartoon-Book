@@ -62,6 +62,9 @@ public class AppOpenAdManager
         get
         {
             // COMPLETE: Consider ad expiration
+            Debug.Log("hehe 2 " + ad);
+            Debug.Log("hehe 2 " + (System.DateTime.UtcNow - loadTime).TotalHours);
+
             return ad != null && (System.DateTime.UtcNow - loadTime).TotalHours < 4;
         }
     }
@@ -107,8 +110,8 @@ public class AppOpenAdManager
             action?.Invoke();
             return;
         }
-        Debug.Log("hehe " + isShowingAd);
-        if (!IsAdAvailable || isShowingAd || (cooldownTime > DateTime.Now && action == null))
+        Debug.Log("hehe " + IsAdAvailable);
+        if (!IsAdAvailable || isShowingAd )
         {
             LoadAd();
             action?.Invoke();
@@ -119,10 +122,10 @@ public class AppOpenAdManager
 
         ad.OnAdFullScreenContentClosed += HandleAdDidDismissFullScreenContent;
         ad.OnAdFullScreenContentClosed += action;
-        ad.OnAdFullScreenContentClosed += () =>
-        {
-            GameController.Instance.admobAds.ResetCoolDownTime();
-        };
+        //ad.OnAdFullScreenContentClosed += () =>
+        //{
+        //    GameController.Instance.admobAds.ResetCoolDownTime();
+        //};
         ad.OnAdFullScreenContentFailed += HandleAdFailedToPresentFullScreenContent;
         ad.OnAdFullScreenContentOpened += HandleAdDidPresentFullScreenContent;
         ad.OnAdImpressionRecorded += HandleAdDidRecordImpression;
@@ -134,8 +137,6 @@ public class AppOpenAdManager
     public void ResetCoolDownTime()
     {
         cooldownTime = DateTime.Now.AddSeconds(90);
-        
-        
     }
 
     private void HandleAdDidDismissFullScreenContent()

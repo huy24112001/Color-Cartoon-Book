@@ -113,10 +113,10 @@ void Frag(v2f i, out f2g o)
 	float3 absPos   = abs(position);
 
 	// You can remove this to improve performance if you don't care about overlapping UV support
-	if (max(max(absPos.x, absPos.y), absPos.z) > 1.0f)
-	{
-		discard;
-	}
+	//if (max(max(absPos.x, absPos.y), absPos.z) > 1.0f)
+	//{
+	//	discard;
+	//}
 
 	float  strength = CW_GetStrength(i, position);
 	float2 coord    = position.xy * 0.5f + 0.5f;
