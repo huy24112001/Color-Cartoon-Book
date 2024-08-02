@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "LJDQIBJNC6YPVCMR",
         "name": "com.gplay.coloring.asmr.cartoon.book",
-        "processId": 22427,
+        "processId": 23692,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -66,6 +66,12 @@
             "deviceId": "LJDQIBJNC6YPVCMR",
             "name": "com.gplay.coloring.asmr.cartoon.book",
             "processId": 22427,
+            "exited": false
+        },
+        {
+            "deviceId": "LJDQIBJNC6YPVCMR",
+            "name": "com.gplay.coloring.asmr.cartoon.book",
+            "processId": 23692,
             "exited": false
         }
     ],
